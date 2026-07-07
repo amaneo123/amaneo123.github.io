@@ -3,20 +3,359 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>amaneo123</title>
+  <title>Tales of Amaneo123 — Alyx Trigi</title>
+  <meta name="description" content="The legend of Amaneo123, forged in the shattered seas of Deepwoken. The saga of the Bw Bros.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px; line-height: 1.6; }
-    h1 { margin-bottom: 0; }
-    a { color: #2563eb; }
+    :root{
+      --bg:#07080b;
+      --bg-2:#0c0e14;
+      --ink:#c9ccd6;
+      --ink-dim:#7d818e;
+      --ember:#ff5a1f;
+      --ember-soft:#ff8a3d;
+      --blood:#b3122b;
+      --steel:#5b7fa6;
+      --edge:rgba(255,255,255,.07);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:'EB Garamond',Georgia,serif;
+      font-size:19px;
+      line-height:1.8;
+      overflow-x:hidden;
+    }
+    /* atmospheric background */
+    body::before{
+      content:"";
+      position:fixed;inset:0;z-index:-2;
+      background:
+        radial-gradient(1200px 700px at 70% -10%, rgba(255,90,31,.10), transparent 60%),
+        radial-gradient(900px 600px at 10% 110%, rgba(179,18,43,.12), transparent 60%),
+        radial-gradient(700px 500px at 50% 50%, rgba(91,127,166,.05), transparent 70%),
+        var(--bg);
+    }
+    body::after{ /* vignette + grain-ish */
+      content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+      background:radial-gradient(120% 120% at 50% 40%, transparent 55%, rgba(0,0,0,.75) 100%);
+    }
+    /* floating embers */
+    .embers{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+    .ember{
+      position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;
+      background:var(--ember);box-shadow:0 0 8px 2px rgba(255,90,31,.7);
+      animation:rise linear infinite;opacity:0;
+    }
+    @keyframes rise{
+      0%{transform:translateY(0) translateX(0);opacity:0}
+      10%{opacity:.9}
+      90%{opacity:.6}
+      100%{transform:translateY(-105vh) translateX(40px);opacity:0}
+    }
+
+    .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+
+    /* HERO */
+    header.hero{
+      min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;position:relative;padding:80px 24px;
+    }
+    .kicker{
+      font-family:'Cinzel',serif;letter-spacing:.5em;text-transform:uppercase;
+      font-size:.72rem;color:var(--ember-soft);margin-bottom:1.4rem;padding-left:.5em;
+    }
+    h1.title{
+      font-family:'Cinzel',serif;font-weight:900;
+      font-size:clamp(2.6rem,9vw,6.4rem);line-height:.98;margin:0;
+      color:#f3ede4;
+      text-shadow:0 0 30px rgba(255,90,31,.35), 0 0 2px rgba(255,255,255,.4);
+    }
+    h1.title span{color:var(--ember);display:block;
+      text-shadow:0 0 40px rgba(255,90,31,.6);}
+    .subtitle{
+      margin-top:1.6rem;font-style:italic;color:var(--ink-dim);
+      font-size:1.15rem;max-width:32ch;
+    }
+    .alias{
+      margin-top:2.4rem;font-family:'Cinzel',serif;letter-spacing:.35em;
+      font-size:.75rem;color:var(--steel);text-transform:uppercase;
+    }
+    .scroll-hint{
+      position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+      color:var(--ink-dim);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+      animation:bob 2.4s ease-in-out infinite;
+    }
+    @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(8px);opacity:1}}
+
+    /* SECTIONS */
+    section{padding:9vh 0;position:relative}
+    .chapter{
+      font-family:'Cinzel',serif;letter-spacing:.4em;font-size:.7rem;
+      text-transform:uppercase;color:var(--ember-soft);margin-bottom:.8rem;
+    }
+    h2{
+      font-family:'Cinzel',serif;font-weight:700;
+      font-size:clamp(1.8rem,5vw,2.9rem);line-height:1.1;margin:0 0 1.4rem;
+      color:#ece6dc;
+    }
+    p{margin:0 0 1.3rem}
+    p .lead::first-letter{}
+    .drop::first-letter{
+      font-family:'Cinzel',serif;font-size:3.4rem;line-height:.8;float:left;
+      padding:.1em .12em 0 0;color:var(--ember);text-shadow:0 0 20px rgba(255,90,31,.5);
+    }
+    em{color:#ded7cc}
+    .accent{color:var(--ember-soft)}
+    .blood{color:var(--blood);font-weight:600}
+
+    .divider{
+      width:100%;max-width:820px;margin:2vh auto;height:1px;
+      background:linear-gradient(90deg,transparent,var(--edge),transparent);
+    }
+    .rule-ornament{
+      text-align:center;color:var(--ember);letter-spacing:1em;
+      font-size:.8rem;margin:5vh 0;opacity:.6;
+    }
+
+    /* CHARACTER CARDS */
+    .cards{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:2.5rem 0}
+    .card{
+      border:1px solid var(--edge);border-radius:14px;padding:1.6rem 1.5rem;
+      background:linear-gradient(160deg, rgba(255,255,255,.03), rgba(0,0,0,.2));
+      position:relative;overflow:hidden;transition:transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+    }
+    .card::before{
+      content:"";position:absolute;top:0;left:0;width:100%;height:3px;
+      background:linear-gradient(90deg,var(--ember),transparent);
+    }
+    .card:hover{transform:translateY(-6px);border-color:rgba(255,90,31,.4);
+      box-shadow:0 14px 40px -18px rgba(255,90,31,.5)}
+    .card h3{
+      font-family:'Cinzel',serif;font-size:1.25rem;margin:0 0 .1rem;color:#f0e9df;
+    }
+    .card .role{color:var(--ember-soft);font-size:.78rem;letter-spacing:.15em;
+      text-transform:uppercase;margin-bottom:.9rem;display:block;font-family:'Cinzel',serif}
+    .card p{font-size:.98rem;line-height:1.65;color:var(--ink);margin:0}
+
+    .pull{
+      font-family:'Cinzel',serif;font-size:clamp(1.4rem,4vw,2.2rem);line-height:1.3;
+      text-align:center;color:#f0e9df;margin:6vh auto;max-width:22ch;font-weight:700;
+      text-shadow:0 0 26px rgba(255,90,31,.25);
+    }
+    .pull .blood{text-shadow:0 0 26px rgba(179,18,43,.6)}
+
+    /* reveal on scroll */
+    .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s ease, transform 1s ease}
+    .reveal.in{opacity:1;transform:none}
+
+    footer{
+      text-align:center;padding:12vh 24px 8vh;color:var(--ink-dim);
+    }
+    footer .sig{
+      font-family:'Cinzel',serif;letter-spacing:.3em;color:var(--ember);
+      font-size:1rem;text-transform:uppercase;margin-bottom:.6rem;
+    }
+    footer a{color:var(--steel);text-decoration:none;border-bottom:1px solid transparent;transition:.3s}
+    footer a:hover{border-color:var(--steel)}
+
+    @media(max-width:560px){body{font-size:18px}.card p{font-size:1rem}}
   </style>
 </head>
 <body>
-  <h1>amaneo123</h1>
-  <p>Stuff I want to share.</p>
+  <div class="embers" id="embers"></div>
 
-  <ul>
-    <li><a href="https://github.com/amaneo123">GitHub</a></li>
-  </ul>
+  <header class="hero">
+    <div class="kicker">The Shattered Seas of Deepwoken</div>
+    <h1 class="title">TALES OF<span>AMANEO123</span></h1>
+    <p class="subtitle">Legends were not born. They were forged.</p>
+    <div class="alias">— Alyx Trigi —</div>
+    <div class="scroll-hint">Scroll to descend</div>
+  </header>
+
+  <main>
+
+    <section class="wrap reveal">
+      <p class="drop">In the shattered seas of Deepwoken — where monsters, madness, and metal clashed endlessly — legends were not born; they were forged. One such legend was <span class="accent">Amaneo123</span>, a warrior whose name echoed across the depths like a storm.</p>
+      <p>But before Amaneo stood at the summit, there were only two: <em>Glores</em> and <em>Xeno</em> — and, from the early age, one important comrade: <em>Tim</em>. These were among the first to truly fight in Deepwoken.</p>
+      <p>Back in the early days, Lower Erisia looked like a beginner's island — yet for these three it was a battlefield. Voidwalkers ruled the lands. Bandits held the camps. Every campfire was a trap. The servers were warzones. The Depths were death sentences.</p>
+      <p>In that chaos, Glores and Xeno stood their path.</p>
+    </section>
+
+    <div class="rule-ornament">✦ ✦ ✦</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter I — The First Blades</div>
+      <h2>They Were Not Handed Strength</h2>
+      <p>No legendaries. No rare bells. They started like everyone else — bare fists, broken armor, and a dream of surviving one more fight. But their ambition was different.</p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Glores</h3>
+          <span class="role">The Goat · Perfect Control</span>
+          <p>He trained in silence, studying every parry, every swing. Disciplined — a master of timing and precision. Where others spammed mantras, Glores waited for the right moment and made every strike matter.</p>
+        </div>
+        <div class="card">
+          <h3>Xeno</h3>
+          <span class="role">The Storm · Katana</span>
+          <p>Graceful but lethal, sharpened like a blade through wind. He trained for speed and unpredictability — one dash, three slashes, a whole squad down before they could react. An artist painting chaos with steel.</p>
+        </div>
+        <div class="card">
+          <h3>Tim</h3>
+          <span class="role">The Mountain-Breaker · Power</span>
+          <p>He didn't vanish into shadows — he stood his ground. Heavy weapons swung like they weighed nothing, paired with devastating mantras: fire blasts, shockwaves, lightning that cracked the sky. He tanked hits and answered with force that shattered mountains.</p>
+        </div>
+      </div>
+
+      <p>They met by fate, bonded through pain. The trio didn't always agree — Tim's recklessness clashed with Glores' structure, and Xeno often vanished mid-training to chase his obsessions — but they understood each other the way only survivors can.</p>
+    </section>
+
+    <div class="rule-ornament">✦ ✦ ✦</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter II — The Guild</div>
+      <h2>The Bw Bros</h2>
+      <p>It started as a joke: three brainless freshies standing over the campfire in Lower Erisia, near the bandit camp — clothes torn, hands bruised — and a new guild called the <span class="accent">Bw Bros</span>.</p>
+      <p><em>BW — short for BedWars.</em> A name once whispered with awe across a completely different universe: <em>Hypixel</em>. Back then they weren't survivors — they were champions. An overpowered trio famous for synergy, tactics, and dominance. The Bw Bros weren't just good. They were <span class="blood">feared</span>.</p>
+      <p>They built the guild brick by brick. And then Tim disappeared. No word. No message.</p>
+      <p>Glores and Xeno waited. Days turned to weeks. Weeks to months. But they kept training. Lower Erisia no longer held challenge or value, so they moved to <span class="accent">Starswept Valley</span> — a place that demanded more, and rewarded those who could survive its chaos. For four months, just the two of them: threshers, sand knights, golems. Learning the terrain. Mastering new mantras.</p>
+    </section>
+
+    <div class="rule-ornament">✦ ✦ ✦</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter III — Bonds Reforged</div>
+      <h2>The Reunion of Gren</h2>
+      <p>It was a random encounter that felt like fate. In the middle of nowhere in Starswept Valley, they stumbled across a familiar name — <em>Grencel · David · Gren · Beher1t</em>. An old friend. A combat warrior who had fought beside them years before, wielding advanced weaponry with a style precise and brutal.</p>
+      <p>At first, not much was said. A nod. A "yo." Then Gren grew comfortable, and joined. It wasn't just two anymore — it was three again, but different. Stronger. Focused. Each trained not to catch up, but to lift the others higher.</p>
+      <p><strong class="accent">And then Tim returned.</strong> He showed up in Starswept wielding his orange <em>Petras Anchor</em>, still scarred from the petrification of Deepwoken. <em>"'Sup,"</em> he said. They were stunned. The Bw Bros weren't a joke anymore — they were better than ever. That was the moment the Bw Bros stopped being an idea… and became a <span class="accent">brotherhood</span>.</p>
+    </section>
+
+    <div class="rule-ornament">✦ ✦ ✦</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter IV — The Outsider</div>
+      <h2>And Here Comes Zeli</h2>
+      <p>It began mid-battle. Zeli found Xeno caught in a fight and stepped in, facing every spin-back thrown against them. As the odds turned, Xeno turned to face the man who had saved him. Zeli didn't offer many words — he simply watched. An alliance formed.</p>
+      <p>Battle after battle, Zeli proved himself — not just in strength, but in loyalty. And the others proved themselves to him. No one questioned his past or his motives. He was accepted through action, through scars, through silent acknowledgment in the aftermath of every victory.</p>
+      <p>There was no announcement. No formal invitation. Zeli simply became part of the guild — naturally, seamlessly. Not because he asked, but because it was where he <em>fit</em>. In the end, he was no longer the outsider. He was one of them.</p>
+    </section>
+
+    <div class="pull reveal">"They weren't fighters he stood beside. They had become his <span class="blood">brothers</span>."</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter V — The Forge</div>
+      <h2>The Making of Amaneo</h2>
+      <p class="drop">Amaneo began as an outcast, wandering aimlessly through the wildlife of Etris. Physically strong, but without purpose — a homeless man who fought only for the thrill of combat. That is, until he crossed paths with Glores, the Deepwoken veteran known only as <span class="accent">The Goat</span>.</p>
+      <p>Glores didn't speak much, but what he taught echoed in every ounce of Amaneo's purpose. <em>"gopmop."</em> The training was brutal. Amaneo was broken down and remolded — taught that patience, precision, and pain are what forge a true fighter. He learned to weave mantras with precision, to fight not for pride but for purpose. Glores handed him a custom weapon: the <span class="accent">Soulthorne</span> — proof that a fight is not only about the sharpness of your blade or the power of your mantras, but the adaptation and inner peace born of wielding your own weapon.</p>
+      <p>But Glores wasn't the only one who shaped him.</p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Xeno</h3>
+          <span class="role">Gave · Speed</span>
+          <p>Chaos in motion. Training with Xeno meant adapting to unpredictability — to react without thinking, to move as if the body understood the battlefield before the mind did.</p>
+        </div>
+        <div class="card">
+          <h3>Gren</h3>
+          <span class="role">Gave · Vision</span>
+          <p>The brutal tactician. Every movement deliberate, every choice calculated. Gren taught him to see the entire fight — the enemy, the environment, the rhythm. To think like a warrior, not just hit like one.</p>
+        </div>
+        <div class="card">
+          <h3>Tim</h3>
+          <span class="role">Gave · Fury</span>
+          <p>Pure devastation, his Petras Anchor flying like Mjölnir. Where Glores taught control, Tim reminded him not to fear his own strength — that survival sometimes demands destruction.</p>
+        </div>
+      </div>
+
+      <p>Together, the four became more than comrades — they became a <span class="accent">forge</span>. And Amaneo was the blade within it. Where others broke under pressure, he adapted. Where others hesitated, he moved forward. He absorbed everything — Glores' patience, Xeno's speed, Gren's precision, Tim's power — and turned it into something new. Something terrifying.</p>
+      <p>He wasn't just part of their story anymore. <strong class="accent">He was the story. He became the legacy. He rose.</strong></p>
+    </section>
+
+    <div class="pull reveal">He was proof that <span class="blood">adaptation</span> was the success of the Bw Bros.</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter VI — Ascension</div>
+      <h2>The Rise of Alyx Trigi</h2>
+      <p>Amaneo stepped into the world of <span class="accent">chime</span> — a new arena of elite warriors and ruthless competition. He didn't dominate immediately, but he learned, and fast. Each loss became power, teaching him his weaknesses. Each win, a stepping stone. Top 250. Then top 100. Then top 50 — not once, but three times.</p>
+      <p>Every match was war. Every gank he joined became an omen. When Amaneo arrived, the Voidheart shivered. Guilds logged. People logged. Some recognized his weapon. Others only saw the name <span class="blood">Alyx Trigi</span> — and panicked.</p>
+      <p>He wasn't a fighter anymore. He was a force — a part of the elements. People didn't just die when Amaneo fought. They were <span class="blood">crushed</span>. He didn't need an army. He <em>was</em> one. He was the reason the name Bw Bros meant something feared across the servers.</p>
+    </section>
+
+    <div class="rule-ornament">✦ ✦ ✦</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter VII — The Fall</div>
+      <h2>Eviscerate</h2>
+      <p class="drop">It happened on a day like any other — training in Hive, friendly fights. Then the Bw Bros — Glores, Zeli, Xeno, Tim, and Gren — were ambushed by a guild known as <span class="blood">Eviscerate</span>: overwhelming numbers, merciless tactics. They didn't fight to win. They fought to erase.</p>
+      <p>Outnumbered, surrounded, outpaced — even they couldn't hold. Glores stood at the frontline until his blade shattered. Xeno regenerated his mantras and fought on. Gren fell back-to-back with Tim, both refusing to fall quietly. Zeli took out three on his own before they overwhelmed him.</p>
+      <p>But they lost. And <span class="accent">Alyx Trigi wasn't there.</span></p>
+      <p>By the time word reached him, the damage was done. His brothers — injured, broken, humiliated. Not dead. But defeated. The guilt was unbearable. After everything they'd done for him, he hadn't just missed a fight. He'd let them down. He'd failed the people who made him.</p>
+      <p><strong class="accent">But Amaneo didn't let guilt drown him. He turned it into vengeance. And he had a plan.</strong></p>
+    </section>
+
+    <div class="rule-ornament">✦ ✦ ✦</div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter VIII — The Long Knife</div>
+      <h2>The Infiltration</h2>
+      <p>He disappeared. The boys assumed he was training again, or grinding toward another top-50 run. But behind the scenes, he was infiltrating. Amaneo tried out for Eviscerate. He masked himself, buried the memory of what they'd done to his friends, and played the part of a cold, efficient fighter. They welcomed him — his strength was undeniable.</p>
+      <p>For three months he worked alongside his enemies. Training with them. Joking with them. All the while collecting every detail.</p>
+    </section>
+
+    <div class="pull reveal">And then the moment <span class="blood">arrived.</span></div>
+
+    <section class="wrap reveal">
+      <div class="chapter">Chapter IX — Retribution</div>
+      <h2>Soulthorne</h2>
+      <p>He called it a ganking mission — told Eviscerate's higher-ups a major guild was attacking his members in the Depths, and that he'd devised a plan to jump them. The leader believed him. Trusted him.</p>
+      <p>When the time came, two lieutenants arrived first. But Amaneo stood <em>alone</em>. No smile. Just silence — and Soulthorne in his grip.</p>
+      <p>They recognized the blade first. The weapon gifted by Glores. The weapon that marked him not as a recruit — but as a brother of the Bw Bros. Realization hit just before the steel did.</p>
+      <p>He moved fast, no hesitation. One lieutenant fell before drawing a weapon. The second tried to run — cut down mid-turn. No mercy. No pause. They weren't comrades. They were enemies.</p>
+      <p>And then the leader arrived. What followed was a monstrosity that shook the Depths. But Amaneo was something else. He wasn't fighting for himself — he was fighting for <em>Glores, for Xeno, for Zeli, for Tim, for Gren</em>. Using everything they taught him to fell this monster.</p>
+      <p>And then the final <em>m1</em> came. Soulthorne drove straight through the leader's chest in a burst of fury. No final words. Just silence. Just <span class="blood">victory</span>.</p>
+      <p>Blood in his eyes, seeing red — he wasn't the same as before. He was <span class="accent">unleashed</span>. Eviscerate had tried to break the Bw Bros. Instead, they unleashed its true potential.</p>
+    </section>
+
+    <div class="divider"></div>
+
+  </main>
+
+  <footer>
+    <div class="sig">Alyx Trigi · Amaneo123</div>
+    <p style="max-width:34ch;margin:0 auto 1.6rem">He was no longer the student. He was the legend the shattered seas would not forget.</p>
+    <p><a href="https://github.com/amaneo123">github.com/amaneo123</a></p>
+  </footer>
+
+  <script>
+    // floating embers
+    (function(){
+      const box=document.getElementById('embers');
+      const N=window.innerWidth<600?18:34;
+      for(let i=0;i<N;i++){
+        const e=document.createElement('div');
+        e.className='ember';
+        e.style.left=Math.random()*100+'vw';
+        const dur=6+Math.random()*10;
+        e.style.animationDuration=dur+'s';
+        e.style.animationDelay=(-Math.random()*dur)+'s';
+        const s=1+Math.random()*2.5;
+        e.style.width=e.style.height=s+'px';
+        e.style.opacity=String(.3+Math.random()*.5);
+        box.appendChild(e);
+      }
+    })();
+
+    // reveal on scroll
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+    },{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
 </body>
 </html>
-
