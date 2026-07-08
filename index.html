@@ -31,16 +31,11 @@
 
     /* layered atmosphere */
     .bg{position:fixed;inset:0;z-index:-3;background:var(--bg)}
-    .fog{position:fixed;inset:-20% ;z-index:-2;pointer-events:none;
+    .fog{position:fixed;inset:0;z-index:-2;pointer-events:none;
       background:
         radial-gradient(50% 40% at 72% 8%, rgba(255,90,31,.16), transparent 60%),
         radial-gradient(48% 42% at 8% 92%, rgba(224,31,61,.15), transparent 60%),
         radial-gradient(40% 40% at 50% 55%, rgba(109,147,189,.07), transparent 70%);
-      animation:drift 26s ease-in-out infinite alternate;
-    }
-    @keyframes drift{
-      0%{transform:translate(0,0) scale(1)}
-      100%{transform:translate(-3%,2%) scale(1.08)}
     }
     .vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;
       background:radial-gradient(130% 120% at 50% 35%, transparent 52%, rgba(0,0,0,.8) 100%)}
