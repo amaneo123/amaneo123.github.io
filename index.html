@@ -395,14 +395,13 @@
         if(ended) return; ended=true;
         intro.classList.add('done');
         document.body.classList.remove('intro-active');
-        if(hero){hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),600);}
-        setTimeout(()=>intro.remove(),1300);
+        setTimeout(()=>intro.remove(),1000);
       }
       if(reduce){ endIntro(); }
       else{
-        // trigger shake at the flash moment, end shortly after the name lands
-        setTimeout(()=>{ if(hero){hero.classList.add('shake');} }, 6550);
-        const t=setTimeout(endIntro, 8000);
+        // shake the screen on the flash/slam impact, then push through into the hero
+        setTimeout(()=>{ if(hero){hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),500);} }, 2550);
+        const t=setTimeout(endIntro, 3450);
         skip.addEventListener('click',()=>{clearTimeout(t);endIntro();});
       }
     })();
