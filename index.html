@@ -640,10 +640,11 @@
       function start(){
         if(started) return; started=true;
         initAudio();
+        if(actx && actx.state==='suspended') actx.resume();
+        beginTheme();                       // gate click is a gesture → your song starts now
         intro.classList.add('play');
         let grandPlayed=false;
         if(actx && actx.state==='running'){
-          beginTheme();
           grandEntrance(actx.currentTime + 1.55);   // hit synced to the name slam
           grandPlayed=true;
         }
