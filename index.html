@@ -684,28 +684,34 @@
         if(started) return; started=true;
         initAudio();
         intro.classList.add('play');
-        const audioReady = actx && actx.state==='running';
-        if(audioReady){
+        let grandPlayed=false;
+        if(actx && actx.state==='running'){
           beginTheme();
-          const t0=actx.currentTime;
-          grandEntrance(t0 + 1.55);     // hit synced to the name slam
+          grandEntrance(actx.currentTime + 1.55);   // hit synced to the name slam
+          grandPlayed=true;
         }
         // katana flurry building to the finale
         setTimeout(()=>makeSlash(-27,false),300);
         setTimeout(()=>makeSlash( 22,false),560);
         setTimeout(()=>makeSlash(-14,false),820);
         setTimeout(()=>makeSlash( 30,false),1060);
-        setTimeout(()=>makeSlash(-20,true),1300);   // the big cut
-        setTimeout(()=>{               // FINALE: explosion + shake
+        setTimeout(()=>makeSlash(-20,true),1300);     // the big cut
+        setTimeout(()=>{                 // FINALE: explosion + shake (+ audio if it unlocked mid-flurry)
+          if(!grandPlayed && actx && actx.state==='running'){ beginTheme(); grandEntrance(actx.currentTime+0.02); }
           burst();
-          if(hero){ hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),520); }
-        }, 1050);
-        const t=setTimeout(endIntro, 2050);
+          if(hero){ hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),560); }
+        }, 1550);
+        const t=setTimeout(endIntro, 2650);
         skip.addEventListener('click',(e)=>{ e.stopPropagation(); clearTimeout(t); endIntro(); });
       }
 
-      if(reduce){ gate.classList.add('hidden'); endIntro(); }
-      else{ gate.addEventListener('click', start); }
+      // ---- auto-run on load; unlock audio on the first interaction ----
+      if(reduce){ endIntro(); }
+      else{
+        window.addEventListener('load', start);
+        ['pointerdown','keydown','touchstart','wheel','mousemove'].forEach(ev=>
+          window.addEventListener(ev, tryUnlock, {passive:true}));
+      }
     })();
 
     // floating embers
