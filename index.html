@@ -586,15 +586,17 @@
       // a katana slash streak (visual) + its shing
       function makeSlash(ang,big){
         const el=document.createElement('div'); el.className='katana-slash'+(big?' big':'');
-        el.style.top=(28+Math.random()*44)+'%';
+        el.style.top=(34+Math.random()*32)+'%';
         el.style.transform='translateY(-50%) rotate('+ang+'deg)';
         intro.appendChild(el);
-        const dur=big?440:300;
+        const dur=big?560:420;
+        // the blade sweeps its glint all the way across the screen, edge to edge
         el.animate([
-          {left:'-90vw',opacity:0},
-          {left:'-12vw',opacity:1,offset:.34},
-          {left:'95vw',opacity:0}
-        ],{duration:dur,easing:'cubic-bezier(.3,0,.12,1)',fill:'forwards'});
+          {left:'-130vw',opacity:0},
+          {left:'-70vw',opacity:1,offset:.22},
+          {left:'-10vw',opacity:1,offset:.6},
+          {left:'40vw',opacity:0}
+        ],{duration:dur,easing:'cubic-bezier(.3,0,.1,1)',fill:'forwards'});
         setTimeout(()=>el.remove(),dur+400);
         if(actx && actx.state==='running') shing(actx.currentTime+0.01);
       }
