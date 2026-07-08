@@ -552,16 +552,53 @@
       function bell(f,when){
         const o=actx.createOscillator(); o.type='triangle'; o.frequency.value=f;
         const g=actx.createGain(); g.gain.setValueAtTime(.0001,when);
-        g.gain.exponentialRampToValueAtTime(.07,when+.02); g.gain.exponentialRampToValueAtTime(.001,when+1.0);
+        g.gain.exponentialRampToValueAtTime(.06,when+.02); g.gain.exponentialRampToValueAtTime(.001,when+1.0);
         o.connect(g); g.connect(musicBus); if(reverb) g.connect(reverb); o.start(when); o.stop(when+1.0);
       }
+      // choir "aah" pad
+      function choir(freqs,when,dur){
+        freqs.forEach(f=>{
+          const o=actx.createOscillator(); o.type='sine'; o.frequency.value=f*2;
+          const v=actx.createOscillator(); v.type='sine'; v.frequency.value=5;
+          const vg=actx.createGain(); vg.gain.value=3.5; v.connect(vg); vg.connect(o.frequency);
+          const g=actx.createGain(); g.gain.setValueAtTime(.0001,when);
+          g.gain.exponentialRampToValueAtTime(.028,when+.6);
+          g.gain.setValueAtTime(.028,when+dur-.5);
+          g.gain.exponentialRampToValueAtTime(.0001,when+dur);
+          o.connect(g); g.connect(musicBus); if(reverb) g.connect(reverb);
+          v.start(when); v.stop(when+dur); o.start(when); o.stop(when+dur);
+        });
+      }
+      // soaring lead melody note
+      function leadNote(f,when,dur){
+        const o=actx.createOscillator(); o.type='triangle'; o.frequency.value=f;
+        const o2=actx.createOscillator(); o2.type='sine'; o2.frequency.value=f*2;
+        const v=actx.createOscillator(); v.type='sine'; v.frequency.value=5.5;
+        const vg=actx.createGain(); vg.gain.value=3.5; v.connect(vg); vg.connect(o.frequency);
+        const g=actx.createGain(); g.gain.setValueAtTime(.0001,when);
+        g.gain.exponentialRampToValueAtTime(.075,when+.04); g.gain.exponentialRampToValueAtTime(.001,when+dur);
+        const g2=actx.createGain(); g2.gain.value=.03; o2.connect(g2); g2.connect(g);
+        o.connect(g); g.connect(musicBus); if(reverb) g.connect(reverb);
+        v.start(when); v.stop(when+dur); o.start(when); o.stop(when+dur); o2.start(when); o2.stop(when+dur);
+      }
+      // melody motif over Am F C G (4 notes per bar)
+      const melody=[
+        [440.00,523.25,659.25,523.25],
+        [349.23,440.00,523.25,440.00],
+        [329.63,392.00,523.25,659.25],
+        [293.66,392.00,493.88,587.33]
+      ];
       function schedule(){
         if(!actx) return;
+        const beat=BAR/4;
         while(nextBar < actx.currentTime + 0.6){
           const c=prog[barIx%4];
           pad(c,nextBar,BAR);
+          choir(c,nextBar,BAR);
           taiko(nextBar); taiko(nextBar+1.0);
           bell(lead[barIx%4],nextBar+0.04);
+          const m=melody[barIx%4];
+          for(let k=0;k<4;k++) leadNote(m[k], nextBar+k*beat, beat*1.15);
           barIx++; nextBar+=BAR;
         }
       }
