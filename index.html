@@ -268,10 +268,17 @@
     /* explosion shards (spawned by JS) */
     #intro .p{position:absolute;top:50%;left:50%;background:var(--ember);
       box-shadow:0 0 9px 2px rgba(255,120,40,.85);pointer-events:none}
-    .shake{animation:shake .5s cubic-bezier(.36,.07,.19,.97) both}
+    /* radial impact rays (spawned by JS) */
+    #intro .ray{position:absolute;left:50%;top:50%;width:54vw;height:3px;transform-origin:0 50%;opacity:0;
+      background:linear-gradient(90deg,rgba(255,255,255,.95),rgba(255,150,70,.55) 40%,transparent);
+      box-shadow:0 0 18px 3px rgba(255,150,70,.5);pointer-events:none}
+    /* GPU-composite every effect layer so scaling doesn't repaint each frame (fixes the lag) */
+    #intro .spark,#intro .ring,#intro .pillar,#intro .shock,#intro .fireburst,#intro .flash,
+    #intro .katana-slash,#intro .p,#intro .ray{will-change:transform,opacity}
+    .shake{animation:shake .55s cubic-bezier(.36,.07,.19,.97) both}
     @keyframes shake{
-      10%,90%{transform:translate3d(-3px,0,0)}20%,80%{transform:translate3d(4px,0,0)}
-      30%,50%,70%{transform:translate3d(-8px,2px,0)}40%,60%{transform:translate3d(8px,-2px,0)}
+      10%,90%{transform:translate3d(-5px,1px,0)}20%,80%{transform:translate3d(7px,-1px,0)}
+      30%,50%,70%{transform:translate3d(-13px,3px,0)}40%,60%{transform:translate3d(13px,-3px,0)}
     }
 
     @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none;filter:none}#intro{display:none}h1.title .l1,h1.title .l2{opacity:1}}
