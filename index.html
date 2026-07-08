@@ -171,8 +171,48 @@
     #fx .click-ember{position:absolute;border-radius:50%;background:var(--ember);
       box-shadow:0 0 8px 2px rgba(255,120,40,.85)}
 
-    /* ============ CINEMATIC INTRO ============ */
+    /* ============ ENTRY GATE ============ */
     body.intro-active{overflow:hidden;height:100vh}
+    #gate{position:fixed;inset:0;z-index:130;cursor:pointer;display:grid;place-items:center;text-align:center;
+      background:radial-gradient(circle at center,#0b0c11,#000 72%);overflow:hidden;
+      transition:opacity .55s ease, transform .7s cubic-bezier(.6,0,.35,1), filter .7s, visibility .7s}
+    #gate.opening{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.25);filter:blur(10px)}
+    #gate .gate-inner{position:relative;z-index:2;animation:gateFloat 4s ease-in-out infinite}
+    @keyframes gateFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    #gate .g-kicker{font-family:'Cinzel',serif;letter-spacing:.5em;font-size:.7rem;color:var(--ember-soft);
+      text-transform:uppercase;margin-bottom:1rem;padding-left:.5em}
+    #gate .g-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(2rem,8vw,4.6rem);color:#f4eee5;
+      line-height:1;text-shadow:0 0 34px rgba(255,90,31,.45)}
+    #gate .g-title b{color:var(--ember)}
+    #gate .g-enter{margin-top:2.4rem;position:relative;overflow:hidden;cursor:pointer;
+      font-family:'Cinzel',serif;letter-spacing:.22em;text-transform:uppercase;font-size:.86rem;color:#f3ece2;
+      background:linear-gradient(180deg,rgba(255,90,31,.14),rgba(255,90,31,.04));
+      border:1px solid rgba(255,90,31,.55);padding:1rem 2rem;border-radius:34px;
+      display:inline-flex;gap:.7em;align-items:center;transition:transform .25s, box-shadow .3s, border-color .3s;
+      animation:enterPulse 1.9s ease-in-out infinite}
+    #gate .g-enter .blade{display:inline-block;transition:transform .3s;font-size:1.1em}
+    #gate .g-enter:hover{transform:translateY(-2px) scale(1.04);border-color:rgba(255,120,60,.9);
+      box-shadow:0 0 34px 4px rgba(255,90,31,.5)}
+    #gate .g-enter:hover .blade{transform:rotate(-25deg) translateX(2px)}
+    /* shimmer sweep across the button */
+    #gate .g-enter::after{content:"";position:absolute;top:0;left:-60%;width:50%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);
+      animation:btnShine 2.8s ease-in-out infinite}
+    @keyframes btnShine{0%{left:-60%}55%,100%{left:130%}}
+    @keyframes enterPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,90,31,.3)}50%{box-shadow:0 0 26px 2px rgba(255,90,31,.5)}}
+    #gate .g-hint{margin-top:1.2rem;color:var(--ink-dim);font-size:.68rem;letter-spacing:.12em}
+    /* the slash that cuts the gate open on click */
+    #gate .gate-slash{position:absolute;top:50%;left:50%;width:0;height:3px;opacity:0;
+      transform:translate(-50%,-50%) rotate(-24deg);
+      background:linear-gradient(90deg,transparent,#fff,rgba(255,160,80,.8),transparent);
+      box-shadow:0 0 40px 10px rgba(255,255,255,.6),0 0 80px 20px rgba(255,90,31,.5)}
+    #gate.opening .gate-slash{animation:gateCut .5s ease-out both}
+    @keyframes gateCut{0%{width:0;opacity:0}25%{width:170vw;opacity:1}100%{width:200vw;opacity:0}}
+    /* drifting embers inside the gate */
+    #gate .g-ember{position:absolute;bottom:-10px;border-radius:50%;background:var(--ember);
+      box-shadow:0 0 8px 2px rgba(255,90,31,.7);animation:rise linear infinite}
+
+    /* ============ CINEMATIC INTRO ============ */
     #intro{position:fixed;inset:0;z-index:100;background:radial-gradient(circle at center,#0a0b10,#000 72%);
       display:grid;place-items:center;text-align:center;transform-origin:center;overflow:hidden;
       transition:opacity .8s ease, transform 1s cubic-bezier(.6,0,.35,1), filter 1s ease, visibility 1s}
