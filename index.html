@@ -163,6 +163,14 @@
     #mute:hover{border-color:rgba(255,90,31,.8);box-shadow:0 0 24px rgba(255,90,31,.5);transform:scale(1.08)}
     #mute.off{opacity:.55;filter:grayscale(.6)}
 
+    /* interactive click effects */
+    #fx{position:fixed;inset:0;z-index:55;pointer-events:none;overflow:hidden}
+    #fx .click-slash{position:absolute;width:300px;height:2px;transform-origin:center;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.1) 40%,#fff 50%,rgba(255,170,90,.9) 58%,transparent);
+      box-shadow:0 0 20px 4px rgba(255,255,255,.55),0 0 40px 10px rgba(255,90,31,.4)}
+    #fx .click-ember{position:absolute;border-radius:50%;background:var(--ember);
+      box-shadow:0 0 8px 2px rgba(255,120,40,.85)}
+
     /* ============ CINEMATIC INTRO ============ */
     body.intro-active{overflow:hidden;height:100vh}
     #intro{position:fixed;inset:0;z-index:100;background:radial-gradient(circle at center,#0a0b10,#000 72%);
