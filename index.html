@@ -155,6 +155,14 @@
     footer a{color:var(--steel);text-decoration:none;border-bottom:1px solid transparent;transition:.3s}
     footer a:hover{border-color:var(--steel);color:var(--ember-soft)}
 
+    #mute{position:fixed;bottom:20px;right:20px;z-index:60;width:44px;height:44px;border-radius:50%;
+      border:1px solid rgba(255,90,31,.4);background:rgba(10,11,16,.6);backdrop-filter:blur(6px);
+      color:#fff;font-size:1.1rem;cursor:pointer;display:none;align-items:center;justify-content:center;
+      transition:.3s;box-shadow:0 0 18px rgba(255,90,31,.25)}
+    #mute.show{display:flex}
+    #mute:hover{border-color:rgba(255,90,31,.8);box-shadow:0 0 24px rgba(255,90,31,.5);transform:scale(1.08)}
+    #mute.off{opacity:.55;filter:grayscale(.6)}
+
     /* ============ START GATE ============ */
     body.intro-active{overflow:hidden;height:100vh}
     #gate{position:fixed;inset:0;z-index:120;background:radial-gradient(circle at center,#0a0b10,#000 72%);
