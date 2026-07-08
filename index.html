@@ -704,6 +704,7 @@
 
       // ---- entry gate: a click is required to start (and it unlocks your song) ----
       const gate=document.getElementById('gate');
+      initAudio();   // build the audio graph now (during the gate) so the boom has no hitch on click
       // fill the gate with drifting embers
       (function(){
         const n=window.innerWidth<600?14:26;
