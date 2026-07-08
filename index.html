@@ -713,12 +713,44 @@
         skip.addEventListener('click',(e)=>{ e.stopPropagation(); clearTimeout(t); endIntro(); });
       }
 
-      // ---- auto-run on load; unlock audio on the first interaction ----
+      // ---- interactive click: slash streak + ember burst + shing at the cursor ----
+      const fx=document.getElementById('fx');
+      function clickFX(x,y){
+        const ang=-42+Math.random()*84;
+        const el=document.createElement('div'); el.className='click-slash';
+        el.style.left=x+'px'; el.style.top=y+'px';
+        fx.appendChild(el);
+        el.animate([
+          {transform:`translate(-50%,-50%) rotate(${ang}deg) scaleX(0)`,opacity:0},
+          {transform:`translate(-50%,-50%) rotate(${ang}deg) scaleX(1)`,opacity:1,offset:.3},
+          {transform:`translate(-50%,-50%) rotate(${ang}deg) scaleX(1.18)`,opacity:0}
+        ],{duration:440,easing:'cubic-bezier(.2,.7,.2,1)',fill:'forwards'});
+        setTimeout(()=>el.remove(),480);
+        const n=window.innerWidth<600?9:15;
+        for(let i=0;i<n;i++){
+          const p=document.createElement('div'); p.className='click-ember';
+          const s=2+Math.random()*4; p.style.width=p.style.height=s+'px';
+          p.style.left=x+'px'; p.style.top=y+'px'; fx.appendChild(p);
+          const a=Math.random()*Math.PI*2, d=28+Math.random()*100;
+          p.animate([
+            {transform:'translate(-50%,-50%) translate(0,0) scale(1)',opacity:1},
+            {transform:`translate(-50%,-50%) translate(${Math.cos(a)*d}px,${Math.sin(a)*d+18}px) scale(0)`,opacity:0}
+          ],{duration:520+Math.random()*420,easing:'cubic-bezier(.1,.7,.2,1)',fill:'forwards'});
+          setTimeout(()=>p.remove(),980);
+        }
+        if(actx && actx.state==='running') shing(actx.currentTime+0.008);
+      }
+
+      // ---- auto-run on load; unlock audio + click FX on interaction ----
       if(reduce){ endIntro(); }
       else{
         window.addEventListener('load', start);
         ['pointerdown','keydown','touchstart','wheel','mousemove'].forEach(ev=>
           window.addEventListener(ev, tryUnlock, {passive:true}));
+        window.addEventListener('pointerdown',(e)=>{
+          if(e.target.closest('a,button')) return;   // don't fire on links / the mute toggle
+          clickFX(e.clientX, e.clientY);
+        });
       }
     })();
 
