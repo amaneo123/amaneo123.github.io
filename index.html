@@ -139,7 +139,8 @@
     @keyframes cardIn{from{opacity:0;transform:translateY(26px) scale(.98)}to{opacity:1;transform:none}}
 
     .pull{font-family:'Cinzel',serif;font-size:clamp(1.5rem,4.5vw,2.5rem);line-height:1.3;text-align:center;
-      color:#f2ebe1;margin:7vh auto;max-width:24ch;font-weight:700;text-shadow:0 0 26px rgba(255,90,31,.28)}
+      color:#f2ebe1;margin:7vh auto;max-width:24ch;font-weight:700;animation:pullGlow 4.5s ease-in-out infinite}
+    @keyframes pullGlow{0%,100%{text-shadow:0 0 18px rgba(255,90,31,.2)}50%{text-shadow:0 0 40px rgba(255,90,31,.5)}}
     .pull .blood{text-shadow:0 0 28px rgba(224,31,61,.65)}
 
     /* reveal */
