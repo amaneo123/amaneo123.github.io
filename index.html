@@ -210,14 +210,20 @@
       100%{opacity:1;transform:scale(1)}
     }
     /* fiery explosion behind the name */
-    #intro .fireburst{position:absolute;width:40px;height:40px;border-radius:50%;opacity:0;
-      background:radial-gradient(circle,rgba(255,240,200,1),rgba(255,120,40,.9) 35%,rgba(224,31,61,.5) 60%,transparent 72%)}
-    #intro.play .fireburst{animation:fireburst .7s 1.05s ease-out both}
-    @keyframes fireburst{0%{opacity:0;transform:scale(.2)}18%{opacity:.95}100%{opacity:0;transform:scale(16)}}
+    #intro .fireburst{position:absolute;width:60px;height:60px;border-radius:50%;opacity:0;
+      background:radial-gradient(circle,rgba(255,245,215,1),rgba(255,130,45,.95) 32%,rgba(224,31,61,.55) 58%,transparent 74%)}
+    #intro.play .fireburst{animation:fireburst .85s 1.05s ease-out both}
+    @keyframes fireburst{0%{opacity:0;transform:scale(.2)}16%{opacity:1}100%{opacity:0;transform:scale(26)}}
+    /* expanding shockwave rings */
+    #intro .shock{position:absolute;width:40px;height:40px;border-radius:50%;opacity:0;
+      border:3px solid rgba(255,180,110,.9);box-shadow:0 0 40px 10px rgba(255,90,31,.5)}
+    #intro.play .shock{animation:shock .9s 1.05s cubic-bezier(.1,.6,.2,1) both}
+    #intro.play .shock.s2{animation-delay:1.18s;border-color:rgba(224,31,61,.8)}
+    @keyframes shock{0%{opacity:.95;transform:scale(.2)}100%{opacity:0;transform:scale(46)}}
     #intro .flash{position:absolute;inset:0;opacity:0;
-      background:radial-gradient(circle at center,#fff,rgba(255,150,60,.6) 30%,transparent 66%)}
-    #intro.play .flash{animation:flash .45s 1.05s ease-out both}
-    @keyframes flash{0%{opacity:0}20%{opacity:.95}100%{opacity:0}}
+      background:radial-gradient(circle at center,#fff,rgba(255,150,60,.7) 28%,transparent 70%)}
+    #intro.play .flash{animation:flash .5s 1.05s ease-out both}
+    @keyframes flash{0%{opacity:0}16%{opacity:1}100%{opacity:0}}
 
     #intro .skip{position:absolute;bottom:26px;right:26px;color:var(--ink-dim);font-family:'Cinzel',serif;
       font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;background:none;border:1px solid var(--edge);
