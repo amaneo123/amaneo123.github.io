@@ -649,8 +649,10 @@
           burst();
           if(hero){ hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),560); }
         }, 1550);
-        const t=setTimeout(endIntro, 2650);
-        skip.addEventListener('click',(e)=>{ e.stopPropagation(); clearTimeout(t); endIntro(); });
+        // reveal the page and slam the REAL hero title into place (no separate name → no shift)
+        const reveal=()=>{ document.body.classList.add('entered'); endIntro(); };
+        const t=setTimeout(reveal, 1680);
+        skip.addEventListener('click',(e)=>{ e.stopPropagation(); clearTimeout(t); reveal(); });
       }
 
       // ---- interactive click: slash streak + ember burst + shing at the cursor ----
