@@ -420,26 +420,86 @@
   </footer>
 
   <script>
-    // ===== cinematic intro sequence =====
+    // ===== cinematic intro: katana slash + fiery explosion + synthesized sound =====
     (function(){
+      const gate=document.getElementById('gate');
       const intro=document.getElementById('intro');
       const skip=document.getElementById('skip');
       const hero=document.querySelector('header.hero');
       const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-      let ended=false;
+      let started=false, ended=false, actx=null;
+
+      function initAudio(){
+        try{ const AC=window.AudioContext||window.webkitAudioContext; actx=new AC();
+          if(actx.state==='suspended') actx.resume(); }catch(e){ actx=null; }
+      }
+      function noiseBuf(dur){
+        const n=Math.floor(actx.sampleRate*dur), b=actx.createBuffer(1,n,actx.sampleRate), d=b.getChannelData(0);
+        for(let i=0;i<n;i++) d[i]=Math.random()*2-1; return b;
+      }
+      // metallic katana "shing"
+      function shing(){ if(!actx) return; const t=actx.currentTime;
+        const s=actx.createBufferSource(); s.buffer=noiseBuf(.3);
+        const bp=actx.createBiquadFilter(); bp.type='bandpass'; bp.Q.value=7;
+        bp.frequency.setValueAtTime(2200,t); bp.frequency.exponentialRampToValueAtTime(9000,t+.16);
+        const g=actx.createGain(); g.gain.setValueAtTime(.0001,t);
+        g.gain.exponentialRampToValueAtTime(.45,t+.02); g.gain.exponentialRampToValueAtTime(.001,t+.28);
+        s.connect(bp).connect(g).connect(actx.destination); s.start(t); s.stop(t+.3);
+        const o=actx.createOscillator(); o.type='triangle';
+        o.frequency.setValueAtTime(3400,t); o.frequency.exponentialRampToValueAtTime(1600,t+.24);
+        const og=actx.createGain(); og.gain.setValueAtTime(.0001,t);
+        og.gain.exponentialRampToValueAtTime(.18,t+.01); og.gain.exponentialRampToValueAtTime(.001,t+.28);
+        o.connect(og).connect(actx.destination); o.start(t); o.stop(t+.3);
+      }
+      // bass explosion "boom"
+      function boom(){ if(!actx) return; const t=actx.currentTime;
+        const o=actx.createOscillator(); o.type='sine';
+        o.frequency.setValueAtTime(130,t); o.frequency.exponentialRampToValueAtTime(32,t+.5);
+        const g=actx.createGain(); g.gain.setValueAtTime(.9,t); g.gain.exponentialRampToValueAtTime(.001,t+.7);
+        o.connect(g).connect(actx.destination); o.start(t); o.stop(t+.72);
+        const s=actx.createBufferSource(); s.buffer=noiseBuf(.5);
+        const lp=actx.createBiquadFilter(); lp.type='lowpass';
+        lp.frequency.setValueAtTime(1400,t); lp.frequency.exponentialRampToValueAtTime(180,t+.5);
+        const ng=actx.createGain(); ng.gain.setValueAtTime(.7,t); ng.gain.exponentialRampToValueAtTime(.001,t+.55);
+        s.connect(lp).connect(ng).connect(actx.destination); s.start(t); s.stop(t+.56);
+      }
+      // ember shrapnel bursting from the impact
+      function burst(){
+        const n=window.innerWidth<600?26:46;
+        for(let i=0;i<n;i++){
+          const p=document.createElement('div'); p.className='p';
+          const sz=2+Math.random()*5; p.style.width=p.style.height=sz+'px';
+          intro.appendChild(p);
+          const a=Math.random()*Math.PI*2, d=100+Math.random()*300;
+          p.animate([
+            {transform:'translate(-50%,-50%) translate(0,0) scale(1)',opacity:1},
+            {transform:`translate(-50%,-50%) translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px) scale(0)`,opacity:0}
+          ],{duration:650+Math.random()*560,easing:'cubic-bezier(.12,.7,.25,1)',fill:'forwards'});
+          setTimeout(()=>p.remove(),1300);
+        }
+      }
       function endIntro(){
         if(ended) return; ended=true;
-        intro.classList.add('done');
+        intro.classList.add('done'); gate.classList.add('hidden');
         document.body.classList.remove('intro-active');
-        setTimeout(()=>intro.remove(),1000);
+        setTimeout(()=>{ intro.remove(); gate.remove(); },1000);
       }
-      if(reduce){ endIntro(); }
-      else{
-        // shake the screen on the flash/slam impact, then push through into the hero
-        setTimeout(()=>{ if(hero){hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),500);} }, 2550);
-        const t=setTimeout(endIntro, 3450);
-        skip.addEventListener('click',()=>{clearTimeout(t);endIntro();});
+      function start(){
+        if(started) return; started=true;
+        initAudio();
+        gate.classList.add('hidden');
+        intro.classList.add('play');
+        setTimeout(shing, 500);            // blade cuts
+        setTimeout(()=>{                    // impact: boom + explosion + shake
+          boom(); burst();
+          if(hero){ hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),480); }
+        }, 1050);
+        const t=setTimeout(endIntro, 1950); // push through into the hero
+        skip.addEventListener('click',(e)=>{ e.stopPropagation(); clearTimeout(t); endIntro(); });
       }
+
+      if(reduce){ gate.classList.add('hidden'); endIntro(); }
+      else{ gate.addEventListener('click', start); }
     })();
 
     // floating embers
