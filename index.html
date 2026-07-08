@@ -70,15 +70,23 @@
     h1.title{margin:0;line-height:.92;display:flex;flex-direction:column;align-items:center}
     h1.title .l1{display:block;font-family:'Cinzel Decorative',serif;font-weight:700;
       font-size:clamp(.9rem,3vw,1.5rem);letter-spacing:.42em;padding-left:.42em;
-      color:var(--ember-soft);text-shadow:0 0 22px rgba(255,90,31,.45);margin-bottom:.35em;
-      opacity:0;animation:fadeUp 1s .35s ease forwards}
+      color:var(--ember-soft);text-shadow:0 0 22px rgba(255,90,31,.45);margin-bottom:.35em;opacity:0}
+    body.entered h1.title .l1{animation:fadeUp .8s .25s ease forwards}
     /* AMANEO123 — forged metal: white-hot → gold → ember → blood */
     h1.title .l2{display:block;font-family:'Cinzel Decorative',serif;font-weight:900;
       font-size:clamp(3rem,13vw,8.4rem);letter-spacing:.015em;
       background:linear-gradient(180deg,#ffffff 0%,#ffe7bd 20%,#ff9f4f 47%,#e01f3d 76%,#7c0f1d 100%);
       -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
       filter:drop-shadow(0 2px 1px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(255,90,31,.45));
-      opacity:0;animation:fadeUp 1s .55s ease forwards}
+      opacity:0}
+    /* the title slams into place at the entrance finale */
+    body.entered h1.title .l2{animation:heroSlam .9s cubic-bezier(.12,1.5,.3,1) both}
+    @keyframes heroSlam{
+      0%{opacity:0;transform:scale(1.9);letter-spacing:.28em}
+      55%{opacity:1;transform:scale(1);letter-spacing:.015em}
+      70%{transform:scale(1.04)}
+      100%{opacity:1;transform:scale(1)}
+    }
     .subtitle{margin-top:1.7rem;font-style:italic;color:var(--ink-dim);font-size:1.25rem;max-width:34ch;
       opacity:0;animation:fadeUp 1s .8s ease forwards}
     .alias{margin-top:2.4rem;font-family:'Cinzel',serif;letter-spacing:.35em;font-size:.8rem;
