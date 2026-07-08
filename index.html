@@ -702,7 +702,7 @@
         if(opened) return; opened=true;
         gate.classList.add('opening');
         setTimeout(()=>{ if(gate.parentNode) gate.remove(); },800);
-        if(reduce){ if(actx&&actx.state==='suspended')actx.resume(); beginTheme(); endIntro(); }
+        if(reduce){ if(actx&&actx.state==='suspended')actx.resume(); beginTheme(); document.body.classList.add('entered'); endIntro(); }
         else start();
       }
       gate.addEventListener('click', openGate);
