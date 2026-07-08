@@ -378,6 +378,29 @@
   </footer>
 
   <script>
+    // ===== cinematic intro sequence =====
+    (function(){
+      const intro=document.getElementById('intro');
+      const skip=document.getElementById('skip');
+      const hero=document.querySelector('header.hero');
+      const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+      let ended=false;
+      function endIntro(){
+        if(ended) return; ended=true;
+        intro.classList.add('done');
+        document.body.classList.remove('intro-active');
+        if(hero){hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),600);}
+        setTimeout(()=>intro.remove(),1300);
+      }
+      if(reduce){ endIntro(); }
+      else{
+        // trigger shake at the flash moment, end shortly after the name lands
+        setTimeout(()=>{ if(hero){hero.classList.add('shake');} }, 6550);
+        const t=setTimeout(endIntro, 8000);
+        skip.addEventListener('click',()=>{clearTimeout(t);endIntro();});
+      }
+    })();
+
     // floating embers
     (function(){
       const box=document.getElementById('embers');
