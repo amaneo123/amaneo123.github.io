@@ -612,6 +612,21 @@
           setTimeout(()=>p.remove(),1650);
         }
       }
+      // radial impact rays shooting out from the blast
+      function rays(){
+        const n=window.innerWidth<600?10:16;
+        for(let i=0;i<n;i++){
+          const r=document.createElement('div'); r.className='ray';
+          const ang=(360/n)*i + (Math.random()*12-6);
+          intro.appendChild(r);
+          r.animate([
+            {transform:`translateY(-50%) rotate(${ang}deg) scaleX(0)`,opacity:0},
+            {transform:`translateY(-50%) rotate(${ang}deg) scaleX(1)`,opacity:1,offset:.25},
+            {transform:`translateY(-50%) rotate(${ang}deg) scaleX(1.35)`,opacity:0}
+          ],{duration:620+Math.random()*320,easing:'cubic-bezier(.1,.7,.2,1)',fill:'forwards'});
+          setTimeout(()=>r.remove(),980);
+        }
+      }
       function endIntro(){
         if(ended) return; ended=true;
         intro.classList.add('done');
