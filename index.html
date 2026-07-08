@@ -245,10 +245,13 @@
       18%{opacity:1;transform:translateX(-50%) scaleY(1) scaleX(1)}
       100%{opacity:0;transform:translateX(-50%) scaleY(1) scaleX(28)}}
 
-    #intro .reveal-name{position:relative;font-family:'Cinzel',serif;font-weight:900;color:#f6f0e7;
-      font-size:clamp(2.7rem,13vw,8.2rem);opacity:0;line-height:1;text-shadow:0 0 46px rgba(255,90,31,.6)}
+    #intro .reveal-name{position:relative;font-family:'Cinzel Decorative',serif;font-weight:900;color:#f6f0e7;
+      font-size:clamp(2.8rem,13vw,8.6rem);opacity:0;line-height:1}
     #intro.play .reveal-name{animation:slam .95s 1.32s cubic-bezier(.12,1.6,.3,1) both}
-    #intro .reveal-name b{color:var(--ember);font-weight:900}
+    #intro .reveal-name b{font-weight:900;
+      background:linear-gradient(180deg,#ffffff 0%,#ffe7bd 20%,#ff9f4f 47%,#e01f3d 76%,#7c0f1d 100%);
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+      filter:drop-shadow(0 0 34px rgba(255,90,31,.6))}
     @keyframes slam{
       0%{opacity:0;transform:scale(2.2);filter:blur(18px);letter-spacing:.3em}
       52%{opacity:1;transform:scale(1);filter:blur(0);letter-spacing:0}
