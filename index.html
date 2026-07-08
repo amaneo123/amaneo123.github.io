@@ -67,22 +67,21 @@
     .kicker{font-family:'Cinzel',serif;letter-spacing:.5em;text-transform:uppercase;
       font-size:.74rem;color:var(--ember-soft);margin-bottom:1.5rem;padding-left:.5em;
       opacity:0;animation:fadeUp 1.2s .2s ease forwards}
-    h1.title{font-family:'Cinzel',serif;font-weight:900;
-      font-size:clamp(2.8rem,11vw,7rem);line-height:.96;margin:0;color:#f5efe6;
-      animation:flicker 5s linear infinite}
-    h1.title .l1{opacity:0;animation:fadeUp 1s .35s ease forwards;display:block}
-    h1.title .l2{display:block;color:var(--ember);
-      background:linear-gradient(90deg,#ff5a1f,#ffb066,#ff5a1f);background-size:200% auto;
-      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-      opacity:0;animation:fadeUp 1s .55s ease forwards, shimmer 6s linear infinite 1.5s}
-    @keyframes shimmer{to{background-position:200% center}}
-    @keyframes flicker{
-      0%,100%{text-shadow:0 0 30px rgba(255,90,31,.35),0 0 2px rgba(255,255,255,.35)}
-      47%{text-shadow:0 0 30px rgba(255,90,31,.35),0 0 2px rgba(255,255,255,.35)}
-      48%{text-shadow:0 0 10px rgba(255,90,31,.2)}
-      49%{text-shadow:0 0 34px rgba(255,90,31,.5),0 0 3px rgba(255,255,255,.5)}
-      50%{text-shadow:0 0 12px rgba(255,90,31,.2)}
-      51%{text-shadow:0 0 34px rgba(255,90,31,.45)}
+    h1.title{margin:0;line-height:.92;display:flex;flex-direction:column;align-items:center}
+    h1.title .l1{display:block;font-family:'Cinzel Decorative',serif;font-weight:700;
+      font-size:clamp(.9rem,3vw,1.5rem);letter-spacing:.42em;padding-left:.42em;
+      color:var(--ember-soft);text-shadow:0 0 22px rgba(255,90,31,.45);margin-bottom:.35em;
+      opacity:0;animation:fadeUp 1s .35s ease forwards}
+    /* AMANEO123 — forged metal: white-hot → gold → ember → blood */
+    h1.title .l2{display:block;font-family:'Cinzel Decorative',serif;font-weight:900;
+      font-size:clamp(3rem,13vw,8.4rem);letter-spacing:.015em;
+      background:linear-gradient(180deg,#ffffff 0%,#ffe7bd 20%,#ff9f4f 47%,#e01f3d 76%,#7c0f1d 100%);
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+      filter:drop-shadow(0 2px 1px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(255,90,31,.5));
+      opacity:0;animation:fadeUp 1s .55s ease forwards, titleGlow 4.5s ease-in-out infinite 1.6s}
+    @keyframes titleGlow{
+      0%,100%{filter:drop-shadow(0 2px 1px rgba(0,0,0,.55)) drop-shadow(0 0 24px rgba(255,90,31,.4))}
+      50%{filter:drop-shadow(0 2px 1px rgba(0,0,0,.55)) drop-shadow(0 0 44px rgba(255,90,31,.7))}
     }
     .subtitle{margin-top:1.7rem;font-style:italic;color:var(--ink-dim);font-size:1.25rem;max-width:34ch;
       opacity:0;animation:fadeUp 1s .8s ease forwards}
