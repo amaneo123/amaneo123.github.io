@@ -680,8 +680,8 @@
         setTimeout(()=>makeSlash(-20,true),1300);     // the big cut
         setTimeout(()=>{                 // FINALE: explosion + shake (+ audio if it unlocked mid-flurry)
           if(!grandPlayed && actx && actx.state==='running'){ beginTheme(); grandEntrance(actx.currentTime+0.02); }
-          burst();
-          if(hero){ hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),560); }
+          burst(); rays();
+          if(hero){ hero.classList.add('shake'); setTimeout(()=>hero.classList.remove('shake'),620); }
         }, 1550);
         // reveal the page and slam the REAL hero title into place (no separate name → no shift)
         const reveal=()=>{ document.body.classList.add('entered'); endIntro(); };
