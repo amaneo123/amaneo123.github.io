@@ -96,7 +96,10 @@
     /* SECTIONS */
     section{padding:8vh 0;position:relative}
     .chapter{font-family:'Cinzel',serif;letter-spacing:.4em;font-size:.74rem;text-transform:uppercase;
-      color:var(--ember-soft);margin-bottom:.7rem}
+      color:var(--ember-soft);margin-bottom:.7rem;display:flex;align-items:center;gap:.7em}
+    .chapter::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ember);
+      box-shadow:0 0 10px 2px var(--ember);animation:pulseDot 2.4s ease-in-out infinite}
+    @keyframes pulseDot{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
     h2{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(2rem,5.5vw,3.2rem);line-height:1.08;
       margin:0 0 .5rem;color:#f0ebe1;position:relative;display:inline-block}
     h2::after{content:"";display:block;height:2px;width:0;margin-top:.6rem;
