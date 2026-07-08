@@ -620,16 +620,12 @@
         muteBtn.classList.add('show');
       }
 
-      // mute toggle
+      // mute toggle (controls the theme song)
       let muted=false;
       muteBtn.addEventListener('click',(e)=>{
         e.stopPropagation();
-        if(!actx) return;
         muted=!muted;
-        const now=actx.currentTime;
-        musicBus.gain.cancelScheduledValues(now);
-        musicBus.gain.setValueAtTime(Math.max(musicBus.gain.value,0.0001),now);
-        musicBus.gain.exponentialRampToValueAtTime(muted?0.0001:0.5, now+0.4);
+        document.getElementById('theme').muted=muted;
         muteBtn.textContent=muted?'🔇':'🔊';
         muteBtn.classList.toggle('off',muted);
       });
