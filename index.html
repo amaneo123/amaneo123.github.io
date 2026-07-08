@@ -479,15 +479,21 @@
       let started=false, ended=false, actx=null, master=null, reverb=null, musicBus=null;
       let themeTimer=null, nextBar=0, barIx=0;
 
+      let comp=null, distCurve=null;
+      function makeDistCurve(k){ const n=1024,c=new Float32Array(n);
+        for(let i=0;i<n;i++){ const x=i/n*2-1; c[i]=(3+k)*x*20*Math.PI/180/(Math.PI+k*Math.abs(x)); } return c; }
       function initAudio(){
+        if(actx) return;                          // build once (at load) → no hitch on click
         try{
           const AC=window.AudioContext||window.webkitAudioContext; actx=new AC();
-          if(actx.state==='suspended') actx.resume();
-          master=actx.createGain(); master.gain.value=0.9; master.connect(actx.destination);
-          reverb=actx.createConvolver(); reverb.buffer=impulse(2.6,3.2);
-          const wet=actx.createGain(); wet.gain.value=0.32; reverb.connect(wet); wet.connect(master);
-          reverb._wet=wet;
-          musicBus=actx.createGain(); musicBus.gain.value=0.0001; musicBus.connect(master); musicBus.connect(reverb);
+          comp=actx.createDynamicsCompressor();   // limiter: lets the boom get LOUD without ugly clipping
+          comp.threshold.value=-9; comp.knee.value=8; comp.ratio.value=14; comp.attack.value=0.002; comp.release.value=0.28;
+          comp.connect(actx.destination);
+          master=actx.createGain(); master.gain.value=1.0; master.connect(comp);
+          reverb=actx.createConvolver(); reverb.buffer=impulse(2.2,3.0);
+          const wet=actx.createGain(); wet.gain.value=0.34; reverb.connect(wet); wet.connect(master);
+          musicBus=actx.createGain(); musicBus.gain.value=0.0001; musicBus.connect(master);
+          distCurve=makeDistCurve(30);
         }catch(e){ actx=null; }
       }
       function noiseBuf(dur){
