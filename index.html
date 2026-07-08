@@ -680,13 +680,29 @@
         setTimeout(()=>{ intro.remove(); },1050);
       }
 
-      // ---- audio unlock: browsers block sound until a gesture ----
-      let themeStarted=false;
-      function beginTheme(){ if(themeStarted||!actx) return; themeStarted=true; startTheme(actx.currentTime+0.05); }
+      // ---- theme song (mp3 loop) + audio unlock ----
+      const themeEl=document.getElementById('theme');
+      const THEME_VOL=0.6;
+      let themeStarted=false, themeFade=null;
+      function beginTheme(){
+        if(themeStarted) return;
+        themeEl.loop=true; themeEl.volume=0;
+        const p=themeEl.play();
+        if(p && p.catch){ p.then(()=>{ themeStarted=true; fadeTheme(THEME_VOL); }).catch(()=>{ themeStarted=false; }); }
+        else { themeStarted=true; fadeTheme(THEME_VOL); }
+        muteBtn.classList.add('show');
+      }
+      function fadeTheme(target){
+        clearInterval(themeFade);
+        themeFade=setInterval(()=>{
+          const v=themeEl.volume, step=0.03;
+          if(Math.abs(v-target)<=step){ themeEl.volume=target; clearInterval(themeFade); return; }
+          themeEl.volume=v<target ? v+step : v-step;
+        },70);
+      }
       function tryUnlock(){
-        if(!actx) return;
-        if(actx.state==='suspended') actx.resume();
-        if(actx.state==='running') beginTheme();
+        if(actx && actx.state==='suspended') actx.resume();
+        beginTheme();   // mp3 playback also needs a gesture; this fires on first interaction
       }
 
       function start(){
