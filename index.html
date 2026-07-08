@@ -682,10 +682,11 @@
       let themeStarted=false, themeFade=null;
       function beginTheme(){
         if(themeStarted) return;
+        themeStarted=true;                 // optimistic; reset if the browser blocks it
         themeEl.loop=true; themeEl.volume=0;
         const p=themeEl.play();
-        if(p && p.catch){ p.then(()=>{ themeStarted=true; fadeTheme(THEME_VOL); }).catch(()=>{ themeStarted=false; }); }
-        else { themeStarted=true; fadeTheme(THEME_VOL); }
+        if(p && p.catch){ p.then(()=>fadeTheme(THEME_VOL)).catch(()=>{ themeStarted=false; }); }
+        else fadeTheme(THEME_VOL);
         muteBtn.classList.add('show');
       }
       function fadeTheme(target){
